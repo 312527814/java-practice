@@ -2,16 +2,18 @@ package com.my;
 
 import java.io.File;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-public class MyClassLoader  extends URLClassLoader {
+
+
+public class MyClassLoader extends URLClassLoader {
     public MyClassLoader(URL[] urls){
         super(urls,getSystemClassLoader());
     }
-
     public static void main(String[] args) throws Exception {
+
+
         //指定加载的class文件路径；
         /**
          * 比如一个class文件的位置：
@@ -28,6 +30,7 @@ public class MyClassLoader  extends URLClassLoader {
 
         Method json = bean.getMethod("json", int.class, String.class);
         Object ee = json.invoke(o, 1, "ee");
+
         Thread thread = new Thread(()->{},"ee-1");thread.start();
 
         ClassLoader contextClassLoader = thread.getContextClassLoader();

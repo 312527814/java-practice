@@ -1,2 +1,5 @@
 集群
 这三个eureka项目的hostname还不能一样，不能全都是localhost，所以开发的时候，要在本地设置虚拟域名
+
+启动配置：
+VM options : -Dspring.profiles.active=server1
