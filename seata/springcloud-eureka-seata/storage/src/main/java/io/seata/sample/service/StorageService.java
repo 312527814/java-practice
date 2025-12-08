@@ -22,19 +22,19 @@ public class StorageService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Transactional
-    @GlobalTransactional
+//    @Transactional
+//    @GlobalTransactional
     public void deduct(String commodityCode, int count) {
-//
-//        jdbcTemplate.update("update storage_tbl set count = count - ? where commodity_code = ?",
-//            new Object[] {count, commodityCode});
+
+        jdbcTemplate.update("update storage_tbl set count = count - ? where commodity_code = ?",
+            new Object[] {count, commodityCode});
 
 
         UUID uuid = UUID.randomUUID();
 //        jdbcTemplate.update("update storage_tbl set count = count - ? where commodity_code in ('C100000','C1000001')",new Object[] {count});
-        jdbcTemplate.update("INSERT INTO `at_storage`.`storage_tbl` (`commodity_code`, `count`) VALUES ('" + uuid.toString() + "', 99031)");
-
-        jdbcTemplate.update("INSERT INTO `at_storage`.`storage_tbl` (`commodity_code`, `count`) VALUES ('" + uuid.toString() + "1" + "', 99031)");
+//        jdbcTemplate.update("INSERT INTO `at_storage`.`storage_tbl` (`commodity_code`, `count`) VALUES ('" + uuid.toString() + "', 99031)");
+//
+//        jdbcTemplate.update("INSERT INTO `at_storage`.`storage_tbl` (`commodity_code`, `count`) VALUES ('" + uuid.toString() + "1" + "', 99031)");
 
 
     }

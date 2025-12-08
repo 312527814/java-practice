@@ -20,7 +20,7 @@ import java.util.List;
 public class App {
 
     @Test
-    public void main1() {
+    public void main() {
         //生成动态代理类的class文件
         System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "e:\\class2");
         Enhancer enhancer = new Enhancer();
@@ -50,7 +50,7 @@ public class App {
         boss.Say("dsds");
     }
 
-    public static void main(String[] args) {
+    public static void main4(String[] args) {
         System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
         List<Class> list = new ArrayList<>();
         Secretary mishu = new Secretary();

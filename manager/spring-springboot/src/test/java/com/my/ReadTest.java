@@ -13,6 +13,9 @@ import org.junit.Test;
  * 历 史: (版本) 作者 时间 注释 <br/>
  */
 public class ReadTest {
+    static {
+        System.out.println("ReadTest2..........");
+    }
     @Test
     public void indexOrNameRead() {
         String fileName ="/Users/ll/Desktop/test.xlsx";

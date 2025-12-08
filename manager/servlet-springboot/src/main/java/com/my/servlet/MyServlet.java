@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name="FirstServlet",urlPatterns="/first",loadOnStartup = 2)
-@Order(10)
+@WebServlet(name="FirstServlet",urlPatterns="/*")
+@Order(11)
 public class MyServlet extends HttpServlet {
     public MyServlet(){
 
@@ -19,6 +19,11 @@ public class MyServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        System.out.println("请求成功1");
+        System.out.println("threadname "+Thread.currentThread().getName());
+        try {
+            Thread.sleep(1000*60*60);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

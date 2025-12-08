@@ -6,6 +6,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MyController implements BeanFactoryAware {
     @Autowired
     private MyService myService;
+
+    @Value("${id}")
+    private String id;
 
     public MyController(){
         System.out.print("MyController。。。。。。。。。。。。");
@@ -47,12 +51,19 @@ public class MyController implements BeanFactoryAware {
 
     @ResponseBody
     @GetMapping("/json")
-    public Person json(int id, String name) {
+    public String json(int id, String name) {
 
-        Person person = new Person();
-        person.setId(id);
-        person.setName(name);
-        return person;
+        Thread thread = new Thread(() -> {
+            Person person = new Person();
+            person.setId(id);
+            person.setName(name);
+            System.out.println("person.getClass().getClassLoader():" + person.getClass().getClassLoader());
+        },"json");
+        thread.start();
+        ClassLoader contextClassLoader = thread.getContextClassLoader();
+        System.out.println("contextClassLoader:"+contextClassLoader);
+
+        return "person.toString()";
     }
 
     @Override

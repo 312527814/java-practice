@@ -1,5 +1,7 @@
 package com.my;
 
+import com.my.aspectjaop.MyService;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -15,6 +17,13 @@ public class App2 {
 
     public static void main(String[] args) throws Exception {
 
+        App2 app2 = new App2();
+        Class<? extends App2> aClass = app2.getClass();
+        Class<App2> app2Class = App2.class;
+
+
+        System.out.println(aClass);
+        System.out.println(app2Class);
 
 //        App2 app = new App2();
 //        while (true) {

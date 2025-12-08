@@ -1,0 +1,12 @@
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj_1_8.dtd">
+<aspectj>
+    <weaver options="-verbose -showWeaveInfo">
+        <!-- Weave all classes within our application -->
+        <include within="*"/>
+    </weaver>
+
+    <aspects>
+        <!-- Define the aspects to be used -->
+        <aspect name="ExecutionTimeAspect"/>
+    </aspects>
+</aspectj>

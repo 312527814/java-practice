@@ -20,12 +20,13 @@ public class FileDataSourceInit implements InitFunc {
 
     @Override
     public void init() throws Exception {
-        String flowRulePath = "H:/javalianxi/sentinelmanager/v4/rule.txt";
+        String flowRulePath = "F:/rule.txt";
 
         ReadableDataSource<String, List<FlowRule>> ds = new FileRefreshableDataSource<>(
-                flowRulePath, source -> JSON.parseObject(source, new TypeReference<List<FlowRule>>() {
-        })
-        );
+                flowRulePath, source -> {
+            List<FlowRule> list = JSON.parseArray(source, FlowRule.class);
+            return list;
+        });
         // 将可读数据源注册至 FlowRuleManager.
         FlowRuleManager.register2Property(ds.getProperty());
 
@@ -38,7 +39,7 @@ public class FileDataSourceInit implements InitFunc {
 
 
 
-        String degradeRulePath = "H:/javalianxi/sentinelmanager/v4/degradeRule.txt";
+        String degradeRulePath = "F:/javalianxi/sentinelmanager/v4/degradeRule.txt";
         ReadableDataSource<String, List<DegradeRule>> degrade = new FileRefreshableDataSource<>(degradeRulePath, source -> JSON.parseObject(source, new TypeReference<List<DegradeRule>>() {
         }));
 

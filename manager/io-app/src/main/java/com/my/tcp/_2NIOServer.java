@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.LinkedList;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * @program:
@@ -23,6 +24,7 @@ public class _2NIOServer {
             SocketChannel client = ss.accept(); //不会阻塞？  -1NULL
             if (client == null) {
                 System.out.println("null.....");
+                LockSupport.parkNanos(1000000000*10);
             } else {
                 client.configureBlocking(false);
                 int port = client.socket().getPort();
@@ -30,7 +32,13 @@ public class _2NIOServer {
                 clients.add(client);
             }
             ByteBuffer buffer = ByteBuffer.allocateDirect(4096);  //可以在堆里   堆外
-            for (SocketChannel c : clients) {   //串行化！！！！  多线程！！
+            for (SocketChannel c : clients) {
+                if(c.socket().isClosed()){
+                    clients.remove(c);
+                    continue;
+                }
+
+                //串行化！！！！  多线程！！
                 int num = c.read(buffer);  // >0  -1  0   //不会阻塞
                 if (num > 0) {
                     buffer.flip();
@@ -40,7 +48,17 @@ public class _2NIOServer {
                     String b = new String(aaa);
                     System.out.println(c.socket().getPort() + " : " + b);
                     buffer.clear();
+
+                    buffer.put("hell".getBytes());
+                    buffer.flip();
+                    c.write(buffer);
+                    buffer.clear();
+                    if(b.contains("Close")){
+                        c.close();
+//                        clients.remove(c);
+                    }
                 }
+
 
 
             }

@@ -160,7 +160,7 @@ public class OSFileIO {
 
         {
             //mmap  堆外  和文件映射的   byte  not  objtect
-            MappedByteBuffer map = rafchannel.map(FileChannel.MapMode.PRIVATE, 0, bytes.length * betch);
+//            MappedByteBuffer map = rafchannel.map(FileChannel.MapMode.PRIVATE, 0, bytes.length * betch);
             ByteBuffer buf1 = ByteBuffer.allocate(100);
             while (rafchannel.read(buf1) > 0) {
                 buf1.flip();

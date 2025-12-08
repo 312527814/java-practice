@@ -17,7 +17,7 @@ public class AccountService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Transactional
+//    @Transactional
     public void reduce(String userId, int money) {
         jdbcTemplate.update("update account_tbl set money = money - ? where user_id = ?", new Object[] {money, userId});
 

@@ -20,14 +20,19 @@ public class AsyncServlet2 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("threadname "+Thread.currentThread().getName());
+        AsyncContext asyncContext = req.startAsync();
+        asyncContext.setTimeout(1000*60);
+//        asyncContext.start(()->{
+//
+//        });
         try {
             PrintWriter writer = null;
-            Thread.sleep(1000*3);
+//            Thread.sleep(1000*3);
             writer = resp.getWriter();
             writer.write("asyncContext...");
             writer.flush();
 
-        } catch (IOException | InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         PrintWriter writer = resp.getWriter();

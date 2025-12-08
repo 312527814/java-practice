@@ -32,6 +32,8 @@ public class EurekaDataSourceInit implements InitFunc {
 
         FlowRuleManager.register2Property(eurekaDataSource.getProperty());
 
+
+
     }
     private <T> String encodeJson(T t) {
         return JSON.toJSONString(t);

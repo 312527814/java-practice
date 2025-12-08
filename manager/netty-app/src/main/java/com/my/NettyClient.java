@@ -18,6 +18,7 @@ public class NettyClient {
                     .handler(new ChannelInitializer<Channel>() {
                         @Override
                         protected void initChannel(Channel ch) {
+                            final int[] a = {0};
                             ch.pipeline().addLast(new StringDecoder());
                             ch.pipeline().addLast(new StringEncoder());
                             ch.pipeline().addLast(new SimpleChannelInboundHandler<String>() {
@@ -25,7 +26,11 @@ public class NettyClient {
                                 @Override
                                 protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
                                     System.out.println(ctx.channel().remoteAddress() + ": " + msg);
-                                    //  ctx.writeAndFlush("客户端：你好");
+                                    if (a[0] < 10) {
+                                        ctx.writeAndFlush("客户端：你好");
+                                        a[0]++;
+                                    }
+
                                 }
 
                                 @Override

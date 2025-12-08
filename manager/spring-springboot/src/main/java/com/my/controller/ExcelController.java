@@ -18,6 +18,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/excel")
 public class ExcelController {
+
+    static {
+        System.out.println("excel_Initializing");
+    }
     @GetMapping("upload")
     public String excel(@RequestParam("file") MultipartFile file) throws IOException {
         InputStream inputStream = file.getInputStream();

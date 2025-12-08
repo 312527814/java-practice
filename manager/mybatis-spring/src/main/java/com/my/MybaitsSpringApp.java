@@ -1,6 +1,7 @@
 package com.my;
 
 import com.my.config.AppConfig;
+import com.my.mapper.flowerMapper;
 import com.my.services.DemoSerivce;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -30,7 +31,8 @@ public class MybaitsSpringApp
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
         ac.register(AppConfig.class);
         ac.refresh();
+        flowerMapper bean1 = ac.getBean(flowerMapper.class);
         DemoSerivce bean = ac.getBean(DemoSerivce.class);
-       bean.test();
+        bean.test();
     }
 }

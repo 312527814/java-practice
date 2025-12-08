@@ -1,4 +1,4 @@
-package com.mashibing;
+package com.my;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;

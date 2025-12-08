@@ -2,6 +2,8 @@ package com.my.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.nacos.api.exception.NacosException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +15,7 @@ import java.util.concurrent.CountDownLatch;
 
 @Controller
 @RequestMapping("test")
+@RefreshScope
 public class TestController {
 
     private String baseUrl = "http://123/api";
@@ -21,6 +24,9 @@ public class TestController {
     private RestTemplate template;
     @Resource(name = "restTemplate2")
     private RestTemplate template2;
+
+    @Value("${a}")
+    private String a;
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
@@ -40,7 +46,7 @@ public class TestController {
 
         long l = System.currentTimeMillis();
 
-        System.out.println("get2。。。。。。。。。。。。。");
+        System.out.println("get2。。。。。。。。。。。。。"+a);
         return "get2";
     }
 }

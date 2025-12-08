@@ -24,7 +24,8 @@ public class ListDistinctTest {
         ps.add(new P("zhangsan",11));
         ps.add(new P("lis",11));
         ps.add(new P("zhangsan",12));
-        List<P> collect = ps.stream().filter(distinctByKey(o -> o.getName())).collect(Collectors.toList());
+        List<Integer> ages = ps.stream().filter(f -> f.getName().equals("zhangsan")).map(m -> m.getAge()).filter(age -> age > 10).collect(Collectors.toList());
+
 
         ArrayList<P> ps2 = new ArrayList<>();
         ps2.add(new P("zhangsan",11));

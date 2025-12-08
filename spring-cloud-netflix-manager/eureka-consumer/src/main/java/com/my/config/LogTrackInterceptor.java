@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.*;
 
-@Component
+//@Component
 public class LogTrackInterceptor implements ClientHttpRequestInterceptor {
 
     @Value("${spring.application.name}")

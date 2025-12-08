@@ -35,16 +35,19 @@ public class BusinessService {
      */
     @GlobalTransactional
     public void purchase(String userId, String commodityCode, int orderCount) {
-        storageFeignClient.deduct(commodityCode, orderCount);
+//        storageFeignClient.deduct(commodityCode, orderCount);
 
         orderFeignClient.create(userId, commodityCode, orderCount);
 
+        System.out.println(".................stop.......");
 
-//        try {
-//            Thread.sleep(1000*40);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+
+
+        try {
+            Thread.sleep(1000*400);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 //
 //        int i = 1 / 0;
 //        if (!validData()) {

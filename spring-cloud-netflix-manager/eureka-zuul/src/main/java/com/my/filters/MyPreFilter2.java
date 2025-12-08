@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.SERVICE_ID_KEY;
+
 @Component
 public class MyPreFilter2 extends ZuulFilter {
     @Override
@@ -17,18 +19,20 @@ public class MyPreFilter2 extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 0;
+        return 2;
     }
 
     @Override
     public boolean shouldFilter() {
-        return true;
+        RequestContext ctx = RequestContext.getCurrentContext();
+        return ctx.sendZuulResponse();
     }
 
     @Override
     public Object run() throws ZuulException {
-//        RequestContext ctx = RequestContext.getCurrentContext();
+        RequestContext ctx = RequestContext.getCurrentContext();
 //        ctx.setSendZuulResponse(false);
+        boolean b = ctx.sendZuulResponse();
 
         return  null;
     }

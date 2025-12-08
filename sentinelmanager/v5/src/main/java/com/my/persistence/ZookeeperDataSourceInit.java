@@ -20,7 +20,7 @@ import com.alibaba.fastjson.TypeReference;
 import java.util.List;
 
 public class ZookeeperDataSourceInit implements InitFunc {
-    public static final String remoteAddress="192.168.213.131:2181";
+    public static final String remoteAddress="192.168.16.129:2181";
 
     @Override
     public void init() throws Exception {

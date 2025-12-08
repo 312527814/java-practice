@@ -19,6 +19,7 @@ public class _3_SemaphoreTest {
                     e.printStackTrace();
                 } finally {
                     semaphore.release();
+                    System.out.println(Thread.currentThread().getName() + ": release");
                 }
             }, i + "").start();
         }
@@ -69,7 +70,7 @@ public class _3_SemaphoreTest {
                 try {
 //                    System.out.println(Thread.currentThread().getName() + ": before acquire");
                     semaphore.acquire();
-                    System.out.println(Thread.currentThread().getName() + ": after acquire");
+                    System.out.println(Thread.currentThread().getName() + ": after acquire "+System.currentTimeMillis());
                     Thread.sleep(1000 * 10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -89,10 +90,8 @@ public class _3_SemaphoreTest {
 
 class MySemaphore extends AbstractQueuedSynchronizer {
 
-    private int count;
 
     public MySemaphore(int count) {
-        this.count = count;
         setState(count);
     }
 
@@ -124,7 +123,7 @@ class MySemaphore extends AbstractQueuedSynchronizer {
     public void release() {
 
 
-//        System.out.println(Thread.currentThread().getName() + ": after release  " + release);
+        System.out.println(Thread.currentThread().getName() + ": after release  "+System.currentTimeMillis());
 
         for (; ; ) {
             int state = getState();

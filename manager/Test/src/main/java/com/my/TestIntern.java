@@ -1,5 +1,9 @@
 package com.my;
 
+import sun.applet.AppletClassLoader;
+
+import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.UUID;
 
 /**
@@ -70,6 +74,16 @@ public class TestIntern {
 //    }
 
     public static void main(String[] args) throws Exception {
+
+        ClassLoader parent = TestIntern.class.getClassLoader();
+//        URL url = new URL();
+//        AppletClassLoader appletClassLoader = new AppletClassLoader();
+        Class<?> aClass = parent.loadClass("com.my.App");
+        Object o = aClass.newInstance();
+        System.out.println(o.getClass().getClassLoader());
+
+        Method sss = aClass.getMethod("sss");
+        sss.invoke(o);
 
 
         for (long i = 0; i < Long.MAX_VALUE; i++) {

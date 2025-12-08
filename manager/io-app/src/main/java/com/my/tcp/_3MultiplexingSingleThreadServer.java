@@ -24,7 +24,7 @@ public class _3MultiplexingSingleThreadServer {
 
     public static void main(String[] args) throws IOException {
         ServerSocketChannel server = ServerSocketChannel.open();
-        server.bind(new InetSocketAddress(9090));
+        server.bind(new InetSocketAddress(80));
         ServerSocket socket = server.socket();
         server.configureBlocking(false);
         selector = Selector.open();
@@ -63,26 +63,33 @@ public class _3MultiplexingSingleThreadServer {
 
     public static void serverHanlderRead(SelectionKey key) throws IOException {
 
-        SocketChannel client = (SocketChannel) key.channel();
-        ByteBuffer buffer = (ByteBuffer) key.attachment();
-        buffer.clear();
-        client.read(buffer);
-        buffer.flip();
-        byte[] bytes = new byte[buffer.limit()];
-        buffer.get(bytes);
-        System.out.println(new String(bytes));
 
-        if (new String(bytes).equals("bye")) {
+            SocketChannel client = (SocketChannel) key.channel();
+            ByteBuffer buffer = (ByteBuffer) key.attachment();
+        try {
+            buffer.clear();
+            client.read(buffer);
+            buffer.flip();
+            byte[] bytes = new byte[buffer.limit()];
+            buffer.get(bytes);
+
+            System.out.println(client.getRemoteAddress() + ":" + new String(bytes));
+
+            if (new String(bytes).equals("bye")) {
+                client.close();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
             client.close();
         }
 
-        Scanner sc = new Scanner(System.in);
-        String next = sc.nextLine();
-        buffer.clear();
-        buffer.put(next.getBytes());
-        buffer.flip();
-        client.write(buffer);
-        client.register(selector, SelectionKey.OP_WRITE);
+//        Scanner sc = new Scanner(System.in);
+//        String next = sc.nextLine();
+//        buffer.clear();
+//        buffer.put(next.getBytes());
+//        buffer.flip();
+//        client.write(buffer);
+//        client.register(selector, SelectionKey.OP_WRITE);
 //        client.close();
 //        client.register(selector, SelectionKey.OP_WRITE, buffer);
 

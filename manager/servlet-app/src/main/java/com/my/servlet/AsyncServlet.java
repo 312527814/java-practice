@@ -27,31 +27,34 @@ public class AsyncServlet extends HttpServlet {
         asyncContext.setTimeout(1000*60);
         asyncContext.start(()->{
 
-//            new Thread(()->{
-//                try {
-//                    PrintWriter writer = null;
-//                    Thread.sleep(1000*3);
-//                    writer = resp.getWriter();
-//                    writer.write("asyncContext...");
-//                    asyncContext.complete();
-//                } catch (IOException | InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }).start();
+            new Thread(()->{
+                try {
+                    PrintWriter writer = null;
+                    Thread.sleep(1000*3);
+                    writer = resp.getWriter();
+                    writer.write("asyncContext...");
+                    System.out.println("threadname2 "+Thread.currentThread().getName());
+                    asyncContext.complete();
+                } catch (IOException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
 
-            try {
-                PrintWriter writer = null;
-                Thread.sleep(1000*3);
-                writer = resp.getWriter();
-                writer.write("asyncContext...");
-                asyncContext.complete();
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                PrintWriter writer = null;
+//                Thread.sleep(1000*3);
+//                writer = resp.getWriter();
+//                writer.write("asyncContext...");
+//                System.out.println("threadname2 "+Thread.currentThread().getName());
+//                asyncContext.complete();
+//            } catch (IOException | InterruptedException e) {
+//                e.printStackTrace();
+//            }
 
         });
         PrintWriter writer = resp.getWriter();
         writer.write("hello...");
         writer.flush();
+
     }
 }

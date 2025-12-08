@@ -1,13 +1,8 @@
 package com.my.controller;
 
-import brave.Span;
-import brave.SpanCustomizer;
-import brave.Tracing;
-import brave.http.HttpServerHandler;
-import brave.http.HttpServerRequest;
-import brave.http.HttpServerResponse;
-import brave.http.HttpTracing;
+
 import com.my.openfeign.TestService;
+import com.my.openfeign.TestService2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -45,9 +40,11 @@ public class ConsumerController implements ApplicationContextAware {
 
     @Autowired
     private TestService testService;
-
     @Autowired
-    Tracing tracer;
+    private TestService2 testService2;
+
+//    @Autowired
+//    Tracing tracer;
 
     @GetMapping("consumer/get")
     public String get(HttpServletRequest request) {
@@ -133,7 +130,25 @@ public class ConsumerController implements ApplicationContextAware {
 
         logger.info("begin consumer/post ..............");
         try {
-            String post = testService.post();
+            String post = testService.checkWeb();
+        } catch (Exception e) {
+
+            logger.error(e.toString());
+
+        }
+        logger.info("end consumer/post ..............");
+        return input;
+    }
+    @PostMapping("consumer/post_")
+    public String post_(@RequestBody String input,HttpServletRequest request,HttpServletResponse response) {
+
+
+
+
+
+        logger.info("begin consumer/post ..............");
+        try {
+            String post = testService2.checkWeb();
         } catch (Exception e) {
 
             logger.error(e.toString());

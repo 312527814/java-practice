@@ -24,7 +24,7 @@ public class NettyServer {
     public static void main(String[] args) throws InterruptedException {
 
         NioEventLoopGroup bossGroup = new NioEventLoopGroup();
-        NioEventLoopGroup workerGroup = new NioEventLoopGroup();
+        NioEventLoopGroup workerGroup = new NioEventLoopGroup(4);
 
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         ChannelFuture channelFuture = serverBootstrap

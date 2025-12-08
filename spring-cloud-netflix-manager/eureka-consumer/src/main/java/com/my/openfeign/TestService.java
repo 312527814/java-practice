@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import com.my.config.FeginConfiguration;
 
 //@FeignClient(value = "producer",url = "localhost:8084")
-@FeignClient(value = "producer1", configuration = FeginConfiguration.class)
+@FeignClient(value = "${producer1}", configuration = FeginConfiguration.class,url = "${producer1-url}")
 public interface TestService {
     @RequestMapping(method = RequestMethod.GET, value = "/api/check/web")
     String checkWeb();

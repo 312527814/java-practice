@@ -1,5 +1,6 @@
 package com.my.pojo;
 
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Configuration
-public class Person implements InitializingBean {
+public class Person implements InitializingBean, DisposableBean {
 
     public Person() {
         System.out.print("person");
@@ -51,5 +52,10 @@ public class Person implements InitializingBean {
     public Test getTest2(){
 
         return  getTest();
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println(".....destroy....");
     }
 }

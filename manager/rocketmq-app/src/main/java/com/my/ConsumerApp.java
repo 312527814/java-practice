@@ -25,16 +25,13 @@ public class ConsumerApp {
     @Test
     public void ConsumerInOrder() throws Exception {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name_22");
-        consumer.setNamesrvAddr("192.168.213.128:9876");
+        consumer.setNamesrvAddr("192.168.16.129:9876");
         /**
          * 设置Consumer第一次启动是从队列头部开始消费还是队列尾部开始消费<br>
          * 如果非第一次启动，那么按照上次消费的位置继续消费
          */
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
 
-        HashSet<String> integers1 = new HashSet<>(2);
-        integers1.add("dsdsd");
-        integers1.contains("dsdsd");
         consumer.subscribe("my-test", "tag || TagC || TagD");
         consumer.setConsumeMessageBatchMaxSize(3);
 //        consumer.setPullInterval(1000*30);
@@ -60,7 +57,7 @@ public class ConsumerApp {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                return ConsumeOrderlyStatus.SUCCESS;
+                return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
             }
         });
 
@@ -74,7 +71,7 @@ public class ConsumerApp {
     @Test
     public void ConsumerConcurrently() throws Exception {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name_101");
-        consumer.setNamesrvAddr("192.168.213.128:9876");
+        consumer.setNamesrvAddr("192.168.16.129:9876");
         /**
          * 设置Consumer第一次启动是从队列头部开始消费还是队列尾部开始消费<br>
          * 如果非第一次启动，那么按照上次消费的位置继续消费
@@ -99,10 +96,10 @@ public class ConsumerApp {
         });
 
         consumer.start();
-
+        System.out.println("Consumer Started.");
         new CountDownLatch(1).await();
 
-        System.out.println("Consumer Started.");
+
     }
 
 

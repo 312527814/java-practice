@@ -56,16 +56,16 @@ public class RestTemplateConfig {
         return new Test();
     }
 
-    @Bean
-    public SmartInitializingSingleton loggerRestTemplateInitializerDeprecated(
-            final List<RestTemplate> restTemplates,LogTrackInterceptor logTrackInterceptor) {
-        return () -> {
-            if (restTemplates != null) {
-                restTemplates.forEach(f -> {
-                    List<ClientHttpRequestInterceptor> interceptors = f.getInterceptors();
-                    interceptors.add(logTrackInterceptor);
-                });
-            }
-        };
-    }
+//    @Bean
+//    public SmartInitializingSingleton loggerRestTemplateInitializerDeprecated(
+//            final List<RestTemplate> restTemplates,LogTrackInterceptor logTrackInterceptor) {
+//        return () -> {
+//            if (restTemplates != null) {
+//                restTemplates.forEach(f -> {
+//                    List<ClientHttpRequestInterceptor> interceptors = f.getInterceptors();
+//                    interceptors.add(logTrackInterceptor);
+//                });
+//            }
+//        };
+//    }
 }

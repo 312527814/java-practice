@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name="FirstServlet2",urlPatterns="/first",loadOnStartup = -2)
-@Order(0)
+@WebServlet(name="FirstServlet2",urlPatterns="/*")
+@Order(10)
 public class MyServlet2 extends HttpServlet {
     public MyServlet2(){
 

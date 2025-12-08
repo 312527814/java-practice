@@ -24,5 +24,6 @@ public class SingleWebApplicationInitializer implements WebApplicationInitialize
         ServletRegistration.Dynamic registration = servletContext.addServlet("app", servlet);
         registration.setLoadOnStartup(1);
         registration.addMapping("/single/*");
+
     }
 }

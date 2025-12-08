@@ -8,9 +8,9 @@ package com.my;
  */
 public class ClassLoadApp {
     public static void main(String[] args) {
-        int max = App.MAX;
-        Class<App> appClass = App.class;
-        System.out.println("dds");
+//        int max = App.MAX;
+//        Class<App> appClass = App.class;
+//        System.out.println("dds");
     }
 }
 

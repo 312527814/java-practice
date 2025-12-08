@@ -20,6 +20,7 @@
     <bean name="person" class="com.my.pojo.Person"/>
 
     <bean name="factoryBeanTest" class="com.my.pojo.FactoryBeanTest"/>
+    <bean name="factoryBeanRoom" class="com.my.pojo.FactoryBeanRoom"/>
     <bean class="com.my.support.ApplicationContextHelper" id="applicationContextHelper"></bean>
 
     <bean id="customBeanPostProcessor" class="com.my.support.CustomBeanPostProcessor"></bean>

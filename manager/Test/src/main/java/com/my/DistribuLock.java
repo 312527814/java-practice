@@ -23,6 +23,11 @@ public class DistribuLock {
                     DistribuLock lock = new DistribuLock();
                     lock.lock();
                     a++;
+                    try {
+                        Thread.sleep(1000000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     lock.unLock();
                     latch.countDown();
                 }
@@ -46,7 +51,7 @@ public class DistribuLock {
     public DistribuLock() {
         try {
             CountDownLatch countDownLatch = new CountDownLatch(1);
-            this.zooKeeper = new ZooKeeper("192.168.77.135:2181", 40000, new Watcher() {
+            this.zooKeeper = new ZooKeeper("192.168.16.129:2181", 40000, new Watcher() {
                 @Override
                 public void process(WatchedEvent watchedEvent) {
                     switch (watchedEvent.getState()) {

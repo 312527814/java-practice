@@ -1,6 +1,10 @@
 package com.my;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @program:
@@ -47,12 +51,32 @@ public class Persion implements IPersion {
 
         // Create(Persion.class);
         Persion persion1 = new Persion();
-        persion1.setName("persion1");
-        for (int i = 0; i < 1000000000; i++) {
-            Persion persion = new Persion();
 
-            System.out.println("..........." + i);
+        ArrayList<Persion> persions = new ArrayList<>();
+        persion1.setName("persion1");
+        for (int i = 0; i < 10; i++) {
+            Persion persion = new Persion();
+            persion.setName("zhangsan"+i);
+            persions.add(persion);
         }
+        Stream<Persion> streamf = persions.stream().filter(f -> {
+
+            String name = f.getName();
+            return name.contains("zhangsan");
+
+        });
+        Stream<Persion> streamf2 = streamf.filter(f -> {
+
+            String name = f.getName();
+            return name.contains("zhangsan");
+
+        });
+        Stream<String> stringStream = streamf2.map(f -> {
+            String name = f.getName();
+            return name + "aaa";
+        });
+
+        List<String> collect = stringStream.collect(Collectors.toList());
 
     }
 

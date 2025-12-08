@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.util.Iterator;
 import java.util.PriorityQueue;
+import java.util.concurrent.DelayQueue;
+import java.util.concurrent.Delayed;
+import java.util.concurrent.TimeUnit;
 
 public class PriorityQueueTest {
     public static void main(String[] args) {
@@ -57,6 +60,39 @@ public class PriorityQueueTest {
         }
 
 
+    }
+
+
+    public void ss() throws InterruptedException {
+
+
+        DelayQueue<Delayed> delayQueue=new DelayQueue<>();
+        delayQueue.take();
+    }
+
+    static class Task implements Delayed {
+        long time = System.currentTimeMillis();
+        public Task(long time) {
+            this.time = time;
+        }
+        @Override
+        public int compareTo(Delayed o) {
+            if(this.getDelay(TimeUnit.MILLISECONDS) < o.getDelay(TimeUnit.MILLISECONDS))
+                return -1;
+            else if(this.getDelay(TimeUnit.MILLISECONDS) > o.getDelay(TimeUnit.MILLISECONDS))
+                return 1;
+            else
+                return 0;
+        }
+
+        @Override
+        public long getDelay(TimeUnit unit) {
+            return unit.convert(time - System.currentTimeMillis(),TimeUnit.MILLISECONDS);
+        }
+        @Override
+        public String toString() {
+            return "" + time;
+        }
     }
 
 

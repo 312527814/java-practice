@@ -49,7 +49,41 @@ public class BusinessController {
         String commodityCode = commodityCodes[ran3 % commodityCodes.length];
 
         try {
-            businessService.purchase(user, commodityCode, 1);
+            businessService.purchase("U100000", "C100000", 1);
+
+
+//        businessService.purchase("U100000", "C100000", 1);
+        } catch (Exception exx) {
+//            exx.printStackTrace();
+
+            System.out.println("user=>" + user + " commodityCode=>" + commodityCode + "|" + exx.getMessage());
+            throw new RuntimeException("user=>" + user + " commodityCode=>" + commodityCode + "|" + exx.getMessage());
+        }
+
+
+        return "全局事务提交:user=>" + user + " commodityCode=>" + commodityCode;
+    }
+
+    /**
+     * 购买下单，模拟全局事务提交
+     *
+     * @return
+     */
+    @RequestMapping(value = "/purchase/commit2", produces = "application/json")
+    public String purchaseCommit(String userId) {
+
+
+        int max = 100000, min = 1;
+        int ran2 = (int) (Math.random() * (max - min) + min);
+
+        int ran3 = (int) (Math.random() * (max - min) + min);
+
+        System.out.println(".....................ran=>" + ran2);
+        String user = users[ran2 % users.length];
+        String commodityCode = commodityCodes[ran3 % commodityCodes.length];
+
+        try {
+            businessService.purchase(userId, "C100000", 1);
 
 
 //        businessService.purchase("U100000", "C100000", 1);

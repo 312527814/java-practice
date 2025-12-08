@@ -28,6 +28,7 @@ public class ForkJoinTest {
     private static long forkJoinSum(long[] arr) throws ExecutionException, InterruptedException, IOException {
         long start = System.currentTimeMillis();
 
+        ForkJoinPool forkJoinPool1 = new ForkJoinPool(4);
         ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
 //        System.out.println("read1..");
 //        System.in.read();

@@ -19,7 +19,7 @@ public class OrderService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Transactional
+//    @Transactional
     public void create(String userId, String commodityCode, Integer count) {
 
         int orderMoney = count * 100;

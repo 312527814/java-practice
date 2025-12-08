@@ -27,7 +27,7 @@ public class TestCompletableFuture {
         CompletableFuture<Double> cf2 = CompletableFuture.supplyAsync(()->{
             System.out.println(Thread.currentThread()+" start job2,time->"+System.currentTimeMillis());
             try {
-                Thread.sleep(1500);
+                Thread.sleep(15000);
             } catch (InterruptedException e) {
             }
             System.out.println(Thread.currentThread()+" exit job2,time->"+System.currentTimeMillis());
@@ -36,16 +36,19 @@ public class TestCompletableFuture {
         CompletableFuture<Double> cf3 = CompletableFuture.supplyAsync(()->{
             System.out.println(Thread.currentThread()+" start job3,time->"+System.currentTimeMillis());
             try {
-                Thread.sleep(1300);
+                Thread.sleep(13000);
             } catch (InterruptedException e) {
             }
 
-//            int a=1/0;
+            int a=1/0;
 //            throw new RuntimeException("test");
             System.out.println(Thread.currentThread()+" exit job3,time->"+System.currentTimeMillis());
             return 2.2;
         });
         CompletableFuture<Void> voidCompletableFuture = CompletableFuture.allOf(cf, cf2, cf3);
+
+        System.out.println("end........");
+
         Void join = voidCompletableFuture.join();
         System.out.println(Thread.currentThread()+" voidCompletableFuture");
         //allof等待所有任务执行完成才执行cf4，如果有一个任务异常终止，则cf4.get时会抛出异常，都是正常执行，cf4.get返回null

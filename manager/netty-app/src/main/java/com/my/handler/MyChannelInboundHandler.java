@@ -4,7 +4,18 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.SimpleChannelInboundHandler;
 
+import java.util.Date;
+
 public class MyChannelInboundHandler extends SimpleChannelInboundHandler<String> {
+    public MyChannelInboundHandler(){
+        System.out.println("..........."+new Date());
+    }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        super.channelActive(ctx);
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
         System.out.println("string:" + msg);
@@ -16,7 +27,9 @@ public class MyChannelInboundHandler extends SimpleChannelInboundHandler<String>
 //            e.printStackTrace();
 //        }
 
-        ctx.writeAndFlush("服务器返回 收到");
+        ctx.writeAndFlush("服务器返回 收到,MyChannelInboundHandler:"+this);
+
+        System.out.println("MyChannelInboundHandler:"+this);
 
         new ChannelInboundHandlerAdapter().channelRead(ctx,msg);
         //SimpleChannelInboundHandler
