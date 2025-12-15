@@ -6,12 +6,19 @@ import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
+import dev.langchain4j.model.chat.listener.ChatModelErrorContext;
+import dev.langchain4j.model.chat.listener.ChatModelListener;
+import dev.langchain4j.model.chat.listener.ChatModelRequestContext;
+import dev.langchain4j.model.chat.listener.ChatModelResponseContext;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,12 +33,13 @@ public class AssistantConfig {
         return model;
     }
     @Bean
-    public QwenChatModel qwenChatModel(){
+    public QwenChatModel qwenChatModel(ObjectProvider<ChatModelListener> listeners){
         String getenv = System.getenv("ALI_AI_KEY");
         QwenChatModel model = QwenChatModel.builder()
                 .baseUrl("https://dashscope.aliyuncs.com/api/v1")
                 .modelName("qwen-max")
                 .apiKey(getenv)
+                .listeners(listeners.orderedStream().toList())
                 .build();
         return model;
     }
@@ -70,5 +78,28 @@ public class AssistantConfig {
                 .modelName("text-embedding-v4")
                 .build();
         return  embeddingModel;
+    }
+
+    @Bean
+    ChatModelListener chatModelListener() {
+        return new ChatModelListener() {
+
+            private static final Logger log = LoggerFactory.getLogger(ChatModelListener.class);
+
+            @Override
+            public void onRequest(ChatModelRequestContext requestContext) {
+                log.info("onRequest(): {}", requestContext.chatRequest());
+            }
+
+            @Override
+            public void onResponse(ChatModelResponseContext responseContext) {
+                log.info("onResponse(): {}", responseContext.chatResponse());
+            }
+
+            @Override
+            public void onError(ChatModelErrorContext errorContext) {
+                log.info("onError(): {}", errorContext.error().getMessage());
+            }
+        };
     }
 }
