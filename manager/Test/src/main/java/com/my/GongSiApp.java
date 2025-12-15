@@ -11,13 +11,13 @@ import java.util.Base64;
 
 public class GongSiApp {
     public static void main(String[] args) throws Exception {
-        String pword= "Izsh4KqLCF5qjIpM9eY7PQ==";
+        String pword= "bZc3DCv5aL4KxhxnwNwM8g==";
         String desWord = decrypt(pword, "5qtb0+Z/H1c=");
         System.out.println(desWord);
     }
 
     public static void main2(String[] args) throws Exception {
-        String pword= "zj@2025";
+        String pword= "Tanzer@2025";
         String encrypt = encrypt(pword, "5qtb0+Z/H1c=");
         System.out.println(encrypt);
     }

@@ -41,6 +41,7 @@
         <module>hbase-app</module>
         <module>springboot-sse</module>
         <module>bigdata-hadoop</module>
+        <module>langchain4j-app</module>
     </modules>
     <name>manager</name>
     <!-- FIXME change it to the project's website -->
