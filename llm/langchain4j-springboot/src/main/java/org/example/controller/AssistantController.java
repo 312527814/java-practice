@@ -1,8 +1,8 @@
 package org.example.controller;
 
-import org.example.assistant.OllamaAiAssistant;
-import org.example.assistant.OpenAiAssistant;
-import org.example.assistant.QwenAiAssistant;
+import org.example.aiservices.OllamaAiService;
+import org.example.aiservices.OpenAiService;
+import org.example.aiservices.QwenAiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,26 +14,26 @@ import org.springframework.web.bind.annotation.RestController;
 class AssistantController {
 
     @Autowired
-    private  OpenAiAssistant openAiAssistant;
+    private OpenAiService openAiService;
 
     @Autowired
-    private OllamaAiAssistant ollamaAiAssistant;
+    private OllamaAiService ollamaAiService;
 
     @Autowired
-    private QwenAiAssistant qwenAiAssistant;
+    private QwenAiService qwenAiService;
 
     @GetMapping("/openai/chat")
     public String openaiChat(@RequestParam(value = "message", defaultValue = "Hello") String message) {
-        return openAiAssistant.chat(message);
+        return openAiService.chat(message);
     }
 
     @GetMapping("/ollama/chat")
     public String ollamaChat(@RequestParam(value = "message", defaultValue = "Hello") String message) {
-        return ollamaAiAssistant.chat(message);
+        return ollamaAiService.chat(message);
     }
 
     @GetMapping("/qwen/chat")
     public String qwenChat(@RequestParam(value = "message", defaultValue = "Hello") String message,@RequestParam(value = "userId")String userId) {
-        return qwenAiAssistant.chat(message,userId);
+        return qwenAiService.chat(message,userId);
     }
 }
