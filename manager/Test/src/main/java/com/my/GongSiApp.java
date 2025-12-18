@@ -11,7 +11,7 @@ import java.util.Base64;
 
 public class GongSiApp {
     public static void main(String[] args) throws Exception {
-        String pword= "bZc3DCv5aL4KxhxnwNwM8g==";
+        String pword= "3sWRS0uXu9WVeUVy9+tDXQ==";
         String desWord = decrypt(pword, "5qtb0+Z/H1c=");
         System.out.println(desWord);
     }

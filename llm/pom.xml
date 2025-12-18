@@ -12,6 +12,9 @@
     <modules>
         <module>langchain4j-app</module>
         <module>langchain4j-springboot</module>
+        <module>spring-ai</module>
+        <module>spring-ai-alibaba</module>
+        <module>spring-ai-alibaba-m6</module>
     </modules>
 
     <properties>
@@ -26,6 +29,14 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 
 </project>
