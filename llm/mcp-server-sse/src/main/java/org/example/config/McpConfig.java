@@ -1,0 +1,20 @@
+package org.example.config;
+
+import org.springframework.ai.tool.ToolCallbackProvider;
+import org.springframework.ai.tool.method.MethodToolCallbackProvider;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
+
+import java.util.function.Function;
+
+@Configuration
+public class McpConfig {
+    @Bean
+    public ToolCallbackProvider weatherTools(LocationNameService locationNameService) {
+        return MethodToolCallbackProvider.builder()
+                .toolObjects(locationNameService)
+                .build();
+    }
+
+}
