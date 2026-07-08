@@ -8,10 +8,13 @@ import dev.langchain4j.model.output.Response;
 import dev.langchain4j.store.embedding.EmbeddingMatch;
 import dev.langchain4j.store.embedding.EmbeddingSearchRequest;
 import dev.langchain4j.store.embedding.EmbeddingSearchResult;
+import dev.langchain4j.store.embedding.filter.Filter;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import org.junit.Test;
 
 import java.util.List;
+
+import static dev.langchain4j.store.embedding.filter.MetadataFilterBuilder.metadataKey;
 
 public class EmbeddingApp {
     private QwenEmbeddingModel getModel(String modelName) {
@@ -117,6 +120,45 @@ public class EmbeddingApp {
             System.out.printf("  - %s (相似度: %.4f)%n",
                     match.embedded().text(),
                     match.score());
+        }
+    }
+
+    @Test
+    public void should_embed_one_text_Store3() {
+
+        InMemoryEmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
+
+        EmbeddingModel embeddingModel = getModel("text-embedding-v4");
+
+        String userId = "user_001";
+
+        TextSegment segment1 = TextSegment.from("I like football.", dev.langchain4j.data.document.Metadata.from("userId", userId));
+        Embedding embedding1 = embeddingModel.embed(segment1).content();
+        embeddingStore.add(embedding1, segment1);
+
+        TextSegment segment2 = TextSegment.from("The weather is good today.", dev.langchain4j.data.document.Metadata.from("userId", userId));
+        Embedding embedding2 = embeddingModel.embed(segment2).content();
+        embeddingStore.add(embedding2, segment2);
+
+        String otherUserId = "user_002";
+        TextSegment segment3 = TextSegment.from("I prefer basketball.", dev.langchain4j.data.document.Metadata.from("userId", otherUserId));
+        Embedding embedding3 = embeddingModel.embed(segment3).content();
+        embeddingStore.add(embedding3, segment3);
+
+        Embedding queryEmbedding = embeddingModel.embed("What is your favourite sport?").content();
+
+        Filter userIdFilter = metadataKey("userId").isEqualTo(userId);
+
+        EmbeddingSearchRequest embeddingSearchRequest = EmbeddingSearchRequest.builder()
+                .queryEmbedding(queryEmbedding)
+                .maxResults(10)
+                .filter(userIdFilter)
+                .build();
+        List<EmbeddingMatch<TextSegment>> matches = embeddingStore.search(embeddingSearchRequest).matches();
+
+        for (EmbeddingMatch<TextSegment> match : matches) {
+            System.out.println(match.score());
+            System.out.println(match.embedded().text());
         }
     }
 }
