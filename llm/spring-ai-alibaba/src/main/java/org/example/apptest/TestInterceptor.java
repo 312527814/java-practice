@@ -41,7 +41,7 @@ public class TestInterceptor {
                 .model(chatModel)
                 .tools(weatherTool)
                 .hooks(loggingHook,new LoggingModelHook2())
-                .interceptors(new MyModelInterceptor(),new MyToolInterceptor())
+//                .interceptors(new MyModelInterceptor(),new MyToolInterceptor())
                 .build();
 
         AssistantMessage response = agent.call("what is the weather in San Francisco");

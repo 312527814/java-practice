@@ -9,6 +9,7 @@ import com.alibaba.cloud.ai.graph.agent.hook.ModelHook;
 import com.alibaba.cloud.ai.graph.agent.hook.modelcalllimit.ModelCallLimitHook;
 import com.alibaba.cloud.ai.graph.checkpoint.savers.MemorySaver;
 import com.alibaba.cloud.ai.graph.exception.GraphRunnerException;
+import org.example.hooks.RAGMessagesHook;
 import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.model.ChatModel;
@@ -63,13 +64,13 @@ public class TestHook {
                 .name("weather_agent")
                 .model(chatModel)
                 .tools(weatherTool)
-                .hooks(loggingHook,hook)
+                .hooks(loggingHook)
                 .systemPrompt("You are a helpful assistant")
                 .saver(new MemorySaver())
                 .outputSchema(customSchema)
                 .build();
-
-        AssistantMessage response = agent.call("你是什么模型？",runnableConfig);
+        AssistantMessage response=null;
+//      response = agent.call("你是什么模型？",runnableConfig);
         response = agent.call("what is the weather in San Francisco?", runnableConfig);
         System.out.println(response.getText());
     }

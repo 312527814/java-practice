@@ -1,0 +1,31 @@
+server:
+  port: 8080
+spring:
+  ai:
+    deepseek:
+      api-key: ${DEEPSEEK_API_KEY:}
+      chat:
+        options:
+          model: deepseek-v4-pro
+    model:
+      embedding: dashscope
+    dashscope:
+      embedding:
+        options:
+          model: text-embedding-v4
+      api-key: ${ALI_AI_KEY:}
+      chat:
+        options:
+          model: qwen3.7-plus
+          temperature: 0.7
+          max-tokens: 2000
+          multi-model: true
+    vectorstore:
+      milvus:
+        client:
+          host: 192.168.16.129
+          port: 19530
+          username: root
+          password: milvus
+        database-name: spring_ai
+        collection-name: test_crud_collection2

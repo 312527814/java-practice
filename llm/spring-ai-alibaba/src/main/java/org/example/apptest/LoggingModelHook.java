@@ -21,7 +21,7 @@ public class LoggingModelHook extends ModelHook {
 
     @Override
     public CompletableFuture<Map<String, Object>> beforeModel(OverAllState state, RunnableConfig config) {
-        System.out.println("Before LoggingModelHook call");
+        System.out.println("Before_LoggingModelHook call");
 
 
         return CompletableFuture.completedFuture(Map.of());
@@ -29,7 +29,7 @@ public class LoggingModelHook extends ModelHook {
 
     @Override
     public CompletableFuture<Map<String, Object>> afterModel(OverAllState state, RunnableConfig config) {
-        System.out.println("After LoggingModelHook call");
+        System.out.println("After_LoggingModelHook call");
         return CompletableFuture.completedFuture(Map.of());
     }
 
